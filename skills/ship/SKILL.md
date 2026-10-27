@@ -60,9 +60,27 @@ Choices inside a module stay out; `/qa` covers those. Keep the log sorted with `
 
 To settle a departure or blocker with the user around, ask through the question tool, recommendation first.
 
-With the user away, write the question neutrally, with no recommendation. Spawn two reviewer agents in parallel, each giving its own answer before it sees the reported options, and each citing what forces that answer. One reads only the ticket, spec, ADRs and glossary. The other reads only the map, the code the choice touches, and how the codebase already handles similar cases. An answer with no citation counts as no answer. Then have one reviewer break the leading option: a concrete case where it is wrong, and what reversing it would cost. When the workflow lists a second provider, run this step on the outside reviewer instead (the other provider's reviewer, through its headless command), giving it the question first for its own answer, then the leading option and both cited answers to attack. Agents of one model agree by default, so agreement alone settles nothing:
+With the user away, the panel settles it. Write the question neutrally: the decision and what it touches, with no options and no recommendation. Spawn two reviewer agents in parallel, each with the question, its reading list, and these rules, verbatim:
 
-- If the evidence forces the answer and the attack finds nothing expensive to reverse, take it and log it as `panel`.
+> - **Answer** the question in one or two sentences, from your reading list alone.
+> - **Cite** what forces the answer: the file and line, quoted. A preference without a citation is not an answer.
+> - **Unforced.** If nothing on your list forces an answer, reply `unforced` with what you checked.
+> - **Read-only.** Change no file and no git state.
+
+- **Documents**: the ticket, the spec, the ADRs and the glossary.
+- **Code**: the map, the code the decision touches and its callers, and the places that already solve a similar problem.
+
+Match each answer to the reported options yourself; an answer outside them is a real option. The leading option is the one the cited answers support. Two cited answers that disagree mean nothing forces it. Then send the question, the leading option and both answers, with these rules, to the outside reviewer when the workflow lists a second provider (the other provider's reviewer, through its headless command), else to a third reviewer agent:
+
+> - **Attack.** Find the strongest case against the leading option: a concrete input, caller, or later ticket in this batch where it is wrong. Read anything you need. If you find none, say so; don't invent one.
+> - **Citations.** Check that each quoted line says what its answer claims.
+> - **Reversal.** Say what undoing the option would take: files, data, interfaces callers depend on. Rate it `cheap` (one module, no data, no public interface) or `expensive`.
+> - **Read-only.** Change no file and no git state.
+> - **Report:** the case or `none found`, each citation that doesn't hold, and the reversal with its rating.
+
+Agents of one model agree by default, so agreement alone settles nothing:
+
+- If a citation forces the answer, holds up, and the attack finds no expensive case, take it and log it as `panel`.
 - If nothing forces it, take the most reversible option and log it as `panel?`.
 - If nothing forces it and reversing would be expensive, set the ticket to `ready-for-human` with the options and the reviewers' findings, skip the tickets it blocks, and continue with the rest.
 

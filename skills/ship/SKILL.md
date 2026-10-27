@@ -47,23 +47,29 @@ An agent that needed far more turns than its siblings had an oversized ticket: n
 Each run keeps one **decision log**, status `ready-for-human`. One line per entry:
 
 ```
-- <chosen> over <alternative>, because <reason>; reverse by <how>. (<ticket>, map|departure|panel)
+- <chosen> over <alternative>, because <reason>; reverse by <how>. (<ticket>, map|departure|panel|panel?)
 ```
 
 An entry is written for exactly three things:
 
 - **map**: every edit to the map;
 - **departure**: a choice the ticket, an ADR, or ported code left open or pointed elsewhere;
-- **panel**: a blocker the panel settled.
+- **panel**: a blocker the panel settled; `panel?` when no evidence forced the answer.
 
-Choices inside a module stay out; `/qa` covers those. Keep the log sorted by cost to reverse, most expensive first, so the top lines are the ones worth the user's attention.
+Choices inside a module stay out; `/qa` covers those. Keep the log sorted with `panel?` entries first, then by cost to reverse, most expensive first, so the top lines are the ones worth the user's attention.
 
-To settle a departure or blocker: with the user around, ask through the question tool, recommendation first. With the user away, spawn three reviewer agents in parallel, one per angle (the user's workflow; architecture and maintainability; consistency with the ADRs and spec), and take their converged answer, or the most reversible option when they split. Log it as `panel`.
+To settle a departure or blocker with the user around, ask through the question tool, recommendation first.
+
+With the user away, write the question neutrally, with no recommendation. Spawn two reviewer agents in parallel, each giving its own answer before it sees the reported options, and each citing what forces that answer. One reads only the ticket, spec, ADRs and glossary. The other reads only the map, the code the choice touches, and how the codebase already handles similar cases. An answer with no citation counts as no answer. Then have one reviewer break the leading option: a concrete case where it is wrong, and what reversing it would cost. When the workflow lists a second provider, run this step on the outside reviewer instead (the other provider's reviewer, through its headless command), giving it the question first for its own answer, then the leading option and both cited answers to attack. Agents of one model agree by default, so agreement alone settles nothing:
+
+- If the evidence forces the answer and the attack finds nothing expensive to reverse, take it and log it as `panel`.
+- If nothing forces it, take the most reversible option and log it as `panel?`.
+- If nothing forces it and reversing would be expensive, set the ticket to `ready-for-human` with the options and the reviewers' findings, skip the tickets it blocks, and continue with the rest.
 
 ## Finish
 
 1. Run the full suite once in the background and read only the failures. Hand all of them to one fresh implementer agent, then rerun once.
 2. If the run ends in a PR: push the branch and open it, with the tickets done, the decision log's top entries, and the suite result in its description.
-3. Report once: tickets done with their commits, the PR link, the suite result, the decision log with its top entries, groundwork tickets added, debt reported beyond scope, oversized tickets, and the commit range for `/qa`.
+3. Report once: tickets done with their commits, the PR link, the suite result, the decision log with its top entries, groundwork tickets added, tickets parked as `ready-for-human` with the tickets they block, debt reported beyond scope, oversized tickets, and the commit range for `/qa`.
 
 While agents run, stay silent: speak only when blocked or when a decision needs the user.

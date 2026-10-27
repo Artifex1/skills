@@ -35,5 +35,10 @@ The binding between the ticket-flow skills (`to-tickets`, `ship`, `qa`, `correct
 
 ## Agents
 
-- **Implementer**: model and effort for `ship`'s implementers and the fixers. _e.g._ `sonnet`, or `opus` at `medium`.
-- **Reviewer**: model and effort for `qa`'s lenses and the decision panel. _e.g._ `opus`.
+One entry per provider the repo can run. With a single provider, list just that one.
+
+- **Implementer**: model and effort for `ship`'s implementers and the fixers. _e.g._ Claude: `sonnet`, or `opus` at `medium`. Codex: `terra` or `sol`.
+- **Reviewer**: model and effort for `qa`'s lenses and the decision panel. _e.g._ Claude: `opus`. Codex: `sol`.
+- **Headless**: the command that runs the provider's reviewer with a prompt and no session, so the other provider can consult it. _e.g._ Claude: `claude -p --model opus "<prompt>"`. Codex: `codex exec -m sol "<prompt>"`.
+
+The **outside reviewer** is the reviewer of a provider other than the one running the main thread, run through its headless command: a coordinator on Claude consults `sol`, one on Codex consults `opus`. It exists only when a second provider is listed.

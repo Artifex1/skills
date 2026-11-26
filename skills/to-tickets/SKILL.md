@@ -7,7 +7,7 @@ name: to-tickets
 
 Break a plan, spec, or conversation into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it.
 
-Where a **ticket** lives, how **blocking** is recorded, the **status** values, the **glossary** and the **ADRs** are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`ship`'s WORKFLOW.md](../ship/WORKFLOW.md) first.
+Where a **ticket** lives, how **blocking** is recorded, the **status** values, the **glossary** and the **ADRs** are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 
 ## Process
 
@@ -29,14 +29,14 @@ Break the work into **tracer bullet** tickets.
 
 - Each slice cuts a narrow but COMPLETE path through every layer (schema, API, UI, tests): vertical, NOT a horizontal slice of one layer
 - A completed slice is demoable or verifiable on its own
-- Each slice is sized for one fresh implementer agent to finish well inside a single context window: `/ship` gives every ticket its own agent, and a ticket that sprawls rots that agent's context
+- Each slice is sized for one fresh implementer agent to finish well inside a single context window: `/dispatch` gives every ticket its own agent, and a ticket that sprawls rots that agent's context
 - Any prefactoring should be done first
 
 </vertical-slice-rules>
 
 Give each ticket its **blocking edges**: the other tickets that must complete before it can start. A ticket with no blockers can start immediately.
 
-Give each ticket a **Verify by:** line: the public behaviour that proves it works and the seam where it is tested (a CLI command's output, a crate's public function, a protocol round-trip). This is where tests get agreed, while the user is present; `/ship`'s implementers test exactly there and nowhere deeper.
+Give each ticket a **Verify by:** line: the public behaviour that proves it works and the seam where it is tested (a CLI command's output, a crate's public function, a protocol round-trip). This is where tests get agreed, while the user is present; `/dispatch`'s implementers test exactly there and nowhere deeper.
 
 **Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change (rename a column, retype a shared symbol) whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify ticket; green is promised only there.
 

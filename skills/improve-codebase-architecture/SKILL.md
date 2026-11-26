@@ -20,7 +20,7 @@ Use these terms exactly in every suggestion; don't drift into "component," "serv
 - **Deletion test**: imagine deleting the module. If complexity vanishes, it was a pass-through; if it reappears across callers, it earns its keep.
 - **The interface is the test surface**: wanting to test past the interface means the module is the wrong shape.
 
-The domain language in the glossary names good seams; the ADRs record decisions this skill doesn't re-litigate; the map shows the parts and connections. The glossary, ADRs, map and findings log are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`ship`'s WORKFLOW.md](../ship/WORKFLOW.md) first.
+The domain language in the glossary names good seams; the ADRs record decisions this skill doesn't re-litigate; the map shows the parts and connections. The glossary, ADRs, map and findings log are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 
 ## Process
 

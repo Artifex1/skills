@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 The agents in this repo see only the files they open, copy the nearest example, and take the shortest path that compiles. When `/qa` reports **Repeats**, change the repo so the next agent cannot make that mistake again. Adapted from pstack's `correct`.
 
-The **findings log**, **check** and **targeted test** roles are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`ship`'s WORKFLOW.md](../ship/WORKFLOW.md) first.
+The **findings log**, **check** and **targeted test** roles are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 
 ## 1. Pick the classes
 

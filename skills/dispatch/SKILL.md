@@ -1,11 +1,11 @@
 ---
-name: ship
+name: dispatch
 description: Run a batch of tickets through fresh implementer agents, one per ticket in a shared checkout, logging every change to the system's shape.
 disable-model-invocation: true
 argument-hint: <feature or ticket ids>
 ---
 
-# Ship
+# Dispatch
 
 Implement a batch of tickets with implementer agents while the main thread only coordinates. Work at the `/chopchop` pace: quality first, every turn moving the batch toward done.
 

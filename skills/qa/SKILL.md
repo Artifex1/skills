@@ -9,7 +9,7 @@ argument-hint: <commit range, e.g. main~8..main>
 
 This pass is the quality gate for everything the implementers build. Hunt real defects in a commit range, prove them, fix them, and log them so repeating mistakes get corrected at the root.
 
-The roles below (**ticket**, **map**, **findings log**, **check**, **targeted test**, **full suite**, **integration**, **implementer**, **reviewer**) are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`ship`'s WORKFLOW.md](../ship/WORKFLOW.md) first.
+The roles below (**ticket**, **map**, **findings log**, **check**, **targeted test**, **full suite**, **integration**, **implementer**, **reviewer**) are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 
 ## 1. Scope
 
@@ -36,7 +36,7 @@ Check every finding yourself against the code. Drop what doesn't hold; downgrade
 
 ## 4. Fix
 
-Blockers and shoulds go to fresh implementer agents, one area of the code each, one after another in the checkout under review. Brief them with the implementer rules of `/ship`, copied verbatim from its "Per ticket" section ([SKILL.md](../ship/SKILL.md)); a fixer cannot load `/ship` itself, so the rules travel in the brief. The fix is the proper one, held to the finding's scope: restructure what the finding touches rather than patch around it, and nothing beyond. A fix that needs groundwork beyond the finding becomes a ticket instead. Nits are not fixed; they become follow-ups in the report.
+Blockers and shoulds go to fresh implementer agents, one area of the code each, one after another in the checkout under review. Brief them with the implementer rules of `/dispatch`, copied verbatim from its "Per ticket" section ([SKILL.md](../dispatch/SKILL.md)); a fixer cannot load `/dispatch` itself, so the rules travel in the brief. The fix is the proper one, held to the finding's scope: restructure what the finding touches rather than patch around it, and nothing beyond. A fix that needs groundwork beyond the finding becomes a ticket instead. Nits are not fixed; they become follow-ups in the report.
 
 Then the full suite once; one fixer for its failures. A second review round runs only while a blocker is open, and only over the code that changed. Two rounds at most. Commit as `qa: <range>: <summary>`.
 

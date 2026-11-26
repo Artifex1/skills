@@ -1,6 +1,6 @@
 # Workflow
 
-The binding between the ticket-flow skills (`to-tickets`, `ship`, `qa`, `correct`, `grill`, `improve-codebase-architecture`) and one repo. The skills name **roles**; this file says where each role lives here and which commands run. Copy it to `docs/agents/workflow.md` and replace every example with this repo's answer.
+The binding between the ticket-flow skills (`to-tickets`, `dispatch`, `qa`, `correct`, `grill`, `improve-codebase-architecture`) and one repo. The skills name **roles**; this file says where each role lives here and which commands run. Copy it to `docs/agents/workflow.md` and replace every example with this repo's answer.
 
 ## Tracker
 
@@ -10,7 +10,7 @@ The binding between the ticket-flow skills (`to-tickets`, `ship`, `qa`, `correct
   _Local:_ a `Blocked by:` line. _Jira:_ "is blocked by" links.
 - **Status**: how a ticket's status is recorded, and the value for each role: `ready-for-agent` (fully specified), `ready-for-human` (needs the user), `done`.
   _Local:_ a `Status:` line. _Jira:_ the workflow states.
-- **Decision log**: one per `ship` run, status `ready-for-human`, one line per entry, sortable.
+- **Decision log**: one per `dispatch` run, status `ready-for-human`, one line per entry, sortable.
   _Local:_ `.scratch/<feature>/decisions.md`. _Notion:_ a page per run under a "Decisions" page.
 - **Findings log**: append-only, one line per confirmed QA finding, readable in full so classes can be counted.
   _Local:_ `.scratch/qa/findings.md`. _Notion:_ a database with columns date, class, severity, location, outcome.
@@ -31,13 +31,13 @@ The binding between the ticket-flow skills (`to-tickets`, `ship`, `qa`, `correct
 ## Git
 
 - **Integration**: where a run's commits go by default, and whether a run ends in a PR.
-  _e.g._ the current branch, no PR; or a branch `ship/<feature>` per run, pushed, with a PR opened at the end (`gh pr create`).
+  _e.g._ the current branch, no PR; or a branch `dispatch/<feature>` per run, pushed, with a PR opened at the end (`gh pr create`).
 
 ## Agents
 
 One entry per provider the repo can run. With a single provider, list just that one.
 
-- **Implementer**: model and effort for `ship`'s implementers and the fixers. _e.g._ Claude: `sonnet`, or `opus` at `medium`. Codex: `terra` or `sol`.
+- **Implementer**: model and effort for `dispatch`'s implementers and the fixers. _e.g._ Claude: `sonnet`, or `opus` at `medium`. Codex: `terra` or `sol`.
 - **Reviewer**: model and effort for `qa`'s lenses and the decision panel. _e.g._ Claude: `opus`. Codex: `sol`.
 - **Headless**: the command that runs the provider's reviewer with a prompt and no session, so the other provider can consult it. _e.g._ Claude: `claude -p --model opus "<prompt>"`. Codex: `codex exec -m sol "<prompt>"`.
 

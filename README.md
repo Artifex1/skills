@@ -1,6 +1,6 @@
 # Skills
 
-A lean skill set for engineering with agents: iterate fast while keeping the code good. You shape the design and write tickets, implementer agents build them one per ticket to a finished-design standard, and a stronger reviewer model runs QA every few tickets for bugs, debt, performance and test quality. An architecture map keeps every structural change visible and reviewable, and the decisions that are yours come back to you as questions instead of sitting in a log.
+A lean skill set for engineering with agents: iterate fast while keeping the code good. You shape the design and write tickets, implementer agents build them one per ticket to a finished-design standard, and a stronger reviewer model runs QA every few tickets for bugs, debt, performance and test quality. An architecture map keeps every structural change visible and reviewable, and the decisions that are yours come back to you as questions.
 
 The skills are plain `SKILL.md` folders and assume nothing about the harness beyond subagents and, where available, a tool for asking the user structured questions. Model names in them are examples: a cheaper implementer and a stronger reviewer, in whatever family your harness runs.
 

@@ -32,7 +32,7 @@ Finding format: `[severity] file:line: claim. Evidence: <file:line chain, failin
 
 ## 3. Confirm
 
-Check every finding yourself against the code. Drop what doesn't hold, and what costs more to fix than it will ever save; downgrade anything mislabelled. What survives gets fixed. Done when each finding is confirmed with evidence or dropped.
+Check every finding yourself against the code. Drop what doesn't hold, and what costs more to fix than it will ever save; downgrade anything mislabelled. What survives is fixed or ticketed. Done when each finding is confirmed with evidence or dropped.
 
 ## 4. Fix
 
@@ -44,8 +44,6 @@ Then the full suite once; one fixer for its failures. A second review round runs
 
 ## 5. Log
 
-Every confirmed finding ends this pass fixed, deleted or ticketed. Nothing is left as a follow-up.
-
 Append each confirmed finding to the findings log:
 
 ```
@@ -56,6 +54,6 @@ A **class** is a short reusable name for the kind of mistake (`tautological-test
 
 ## Report
 
-The range, findings by severity with their outcomes, tests deleted, tickets written, the suite result. Never a list of open problems: everything in the report is closed. End with:
+The range, findings by severity with their outcomes, tests deleted, tickets written, the suite result. End with:
 
 **Repeats:** each class now at two or more entries in the findings log and not yet corrected, which is the cue for `/correct`; or `none`.

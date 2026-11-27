@@ -80,7 +80,7 @@ Agents of one model agree by default, so agreement alone settles nothing:
 
 - If a citation forces the answer, holds up, and the attack finds no expensive case, take it: `- [x] panel:`.
 - If nothing forces it, take the most reversible option: `- [x] panel?:`.
-- If nothing forces it and reversing would be expensive, take the most reversible option anyway, but leave it open for the user: `- [ ] yours:`.
+- If nothing forces it and reversing would be expensive, take the most reversible option and leave it open for the user: `- [ ] yours:`.
 
 Choices inside a module are not departures and get no line; `/qa` covers those.
 

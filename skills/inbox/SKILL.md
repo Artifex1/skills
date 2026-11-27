@@ -7,7 +7,7 @@ argument-hint: "[feature or ticket ids]"
 
 # Inbox
 
-`/dispatch` never waits for the user: when a decision is theirs and they are away, it takes the recommended option, leaves it open on the ticket as `- [ ] yours: …`, and carries on. This skill brings those decisions to the user, so they never have to go looking.
+`/dispatch` never waits for the user: when a decision is theirs and they are away, it takes the recommended option, leaves it open on the ticket as `- [ ] yours: …`, and carries on. This skill puts those decisions to the user.
 
 The **ticket**, **open decision**, **status**, **reviewer**, **glossary** and **ADRs** roles are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 

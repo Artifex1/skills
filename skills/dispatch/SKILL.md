@@ -87,7 +87,8 @@ Choices inside a module are not departures and get no line; `/qa` covers those.
 ## Finish
 
 1. Run the full suite once in the background and read only the failures. Hand all of them to one fresh implementer agent, then rerun once.
-2. If the run ends in a PR: push the branch and open it, with the tickets done, a **Waiting on you** section listing every open `yours` line with its ticket, and the suite result in its description.
-3. Report once, opening with **Waiting on you**: the open `yours` lines with their tickets (answer them with `/inbox`) and tickets set to `ready-for-human` with the tickets they block. Then tickets done with their commits, the PR link, the suite result, groundwork tickets added, debt reported beyond scope, oversized tickets, and the commit range for `/qa`.
+2. If the user is around and any `yours` line is open, settle them now as [`inbox`](../inbox/SKILL.md) does: a reviewer agent collects them for this run's tickets, the main thread asks and applies the answers.
+3. If the run ends in a PR: push the branch and open it, with the tickets done, a **Waiting on you** section listing every open `yours` line with its ticket, and the suite result in its description.
+4. Report once, opening with **Waiting on you**: the `yours` lines still open with their tickets (answer them with `/inbox`) and tickets set to `ready-for-human` with the tickets they block. Then tickets done with their commits, the PR link, the suite result, groundwork tickets added, debt reported beyond scope, oversized tickets, and the commit range for `/qa`.
 
 While agents run, stay silent: speak only when blocked or when a decision needs the user.

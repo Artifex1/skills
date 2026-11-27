@@ -9,20 +9,27 @@ argument-hint: "[feature or ticket ids]"
 
 `/dispatch` never waits for the user: when a decision is theirs and they are away, it takes the recommended option, leaves it open on the ticket as `- [ ] yours: …`, and carries on. This skill brings those decisions to the user, so they never have to go looking.
 
-The **ticket**, **open decision**, **status**, **glossary** and **ADRs** roles are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
+The **ticket**, **open decision**, **status**, **reviewer**, **glossary** and **ADRs** roles are bound in `docs/agents/workflow.md`. If that file is missing, set it up with the user from [`dispatch`'s WORKFLOW.md](../dispatch/WORKFLOW.md) first.
 
 ## 1. Collect
 
 Find every ticket with an open decision (the argument narrows it to a feature or tickets), and take each unchecked `- [ ] yours:` line from its `## Decisions` section. If there are none, say so and stop.
 
-For each line, read the ticket and the code the choice landed in, until you can say in plain words what the user will see or what depends on it, and what reversing it would take now that later tickets may build on it. Finding this out is your job; don't ask the user for it.
+Hand the lines to one read-only reviewer agent (the configured model and effort; split by feature when there are many), so the reading stays out of this thread. Its brief is the lines with their tickets, and these rules, verbatim:
+
+> - **Read** each ticket and the code its choice landed in, including later tickets that build on it.
+> - **Plain words.** For each line, say what the user sees or what depends on it, without file paths unless a decision turns on one.
+> - **Reversal.** Say what undoing it would take today: files, data, interfaces, later tickets. Rate it `cheap` or `expensive`.
+> - **Recommend.** Re-judge from what you read which option you'd pick and why; don't copy the run's choice.
+> - **Read-only.** Change no file and no git state.
+> - **Report**, per line: the ticket, the decision as a question, what changes for the user, the real options, your recommendation with its reason, and the reversal with its rating.
 
 ## 2. Ask
 
 Ask through the question tool, one question per decision, most expensive to reverse first. The tool takes a few questions per call, so a longer inbox goes out in consecutive calls.
 
-- **Question**: the decision in plain words, what changes for the user, the ticket, and what reversing it costs today.
-- **Options**: keep the chosen option, and reverse to each real alternative. Mark your recommendation first with "(Recommended)"; re-judge it from what you read rather than copying the run's choice.
+- **Question**: the decision in plain words, what changes for the user, the ticket, and what reversing it costs today, from the agent's report.
+- **Options**: keep the chosen option, and reverse to each real alternative. Mark the recommendation first with "(Recommended)".
 
 Without a question tool, write the same as a numbered list, each with your recommendation, and wait for the answers.
 

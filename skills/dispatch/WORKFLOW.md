@@ -1,6 +1,6 @@
 # Workflow
 
-The binding between the ticket-flow skills (`to-tickets`, `dispatch`, `qa`, `correct`, `grill`, `improve-codebase-architecture`) and one repo. The skills name **roles**; this file says where each role lives here and which commands run. Copy it to `docs/agents/workflow.md` and replace every example with this repo's answer.
+The binding between the ticket-flow skills (`to-tickets`, `dispatch`, `inbox`, `qa`, `correct`, `grill`, `improve-codebase-architecture`) and one repo. The skills name **roles**; this file says where each role lives here and which commands run. Copy it to `docs/agents/workflow.md` and replace every example with this repo's answer.
 
 ## Tracker
 
@@ -10,8 +10,8 @@ The binding between the ticket-flow skills (`to-tickets`, `dispatch`, `qa`, `cor
   _Local:_ a `Blocked by:` line. _Jira:_ "is blocked by" links.
 - **Status**: how a ticket's status is recorded, and the value for each role: `ready-for-agent` (fully specified), `ready-for-human` (needs the user), `done`.
   _Local:_ a `Status:` line. _Jira:_ the workflow states.
-- **Decision log**: one per `dispatch` run, status `ready-for-human`, one line per entry, sortable.
-  _Local:_ `.scratch/<feature>/decisions.md`. _Notion:_ a page per run under a "Decisions" page.
+- **Open decision**: how a ticket shows it has a decision waiting on the user, so `inbox` can find it. The decision lines themselves always sit in the ticket's `## Decisions` section.
+  _Local:_ an unchecked `- [ ] yours:` line is the marker; search the ticket folders for it. _Jira:_ a `decision-pending` label, removed when no open line remains.
 - **Findings log**: append-only, one line per confirmed QA finding, readable in full so classes can be counted.
   _Local:_ `.scratch/qa/findings.md`. _Notion:_ a database with columns date, class, severity, location, outcome.
 

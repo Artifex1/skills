@@ -56,6 +56,8 @@ Ask the user:
 - Are the blocking edges correct: does each ticket only depend on tickets that genuinely gate it?
 - Should any tickets be merged or split further?
 
+Slicing often turns up a decision the plan left open. Ask each one in this step, through the question tool with your recommendation first, and write the answer into its ticket; never settle it quietly in a ticket's wording.
+
 Iterate until the user approves the breakdown.
 
 ### 5. Publish the tickets

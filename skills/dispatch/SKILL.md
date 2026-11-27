@@ -38,7 +38,7 @@ Then the main thread:
 - reads the report, not the diff;
 - settles a departure (see Decisions) and sends a fresh agent to finish the ticket with the answer;
 - for groundwork, writes a new ticket that blocks this one, ships it first, then sends a fresh agent back to this ticket;
-- writes the ticket's decision lines, sets its status to `done` (an open `yours` line doesn't hold it back), and commits `<ticket id>: <title>`, with each map edit and its reason in the message body (and the ticket file, when tickets live in the repo).
+- writes the ticket's decision lines and, under `## Debt seen`, the debt the implementer saw beyond its scope (the next `/qa` picks it up), sets its status to `done` (an open `yours` line doesn't hold it back), and commits `<ticket id>: <title>`, with each map edit and its reason in the message body (and the ticket file, when tickets live in the repo).
 
 An agent that needed far more turns than its siblings had an oversized ticket: note it for the report.
 
@@ -89,6 +89,6 @@ Choices inside a module are not departures and get no line; `/qa` covers those.
 1. Run the full suite once in the background and read only the failures. Hand all of them to one fresh implementer agent, then rerun once.
 2. If the user is around and any `yours` line is open, settle them now as [`inbox`](../inbox/SKILL.md) does: a reviewer agent collects them for this run's tickets, the main thread asks and applies the answers.
 3. If the run ends in a PR: push the branch and open it, with the tickets done, a **Waiting on you** section listing every open `yours` line with its ticket, and the suite result in its description.
-4. Report once, opening with **Waiting on you**: the `yours` lines still open with their tickets (answer them with `/inbox`) and tickets set to `ready-for-human` with the tickets they block. Then tickets done with their commits, the PR link, the suite result, groundwork tickets added, debt reported beyond scope, oversized tickets, and the commit range for `/qa`.
+4. Report once, opening with **Waiting on you**: the `yours` lines still open with their tickets (answer them with `/inbox`) and tickets set to `ready-for-human` with the tickets they block. Then tickets done with their commits, the PR link, the suite result, groundwork tickets added, oversized tickets, and the commit range for `/qa`.
 
 While agents run, stay silent: speak only when blocked or when a decision needs the user.

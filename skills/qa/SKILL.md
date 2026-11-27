@@ -32,30 +32,30 @@ Finding format: `[severity] file:line: claim. Evidence: <file:line chain, failin
 
 ## 3. Confirm
 
-Check every finding yourself against the code. Drop what doesn't hold; downgrade anything mislabelled. Done when each finding is confirmed with evidence or dropped.
+Check every finding yourself against the code. Drop what doesn't hold, and what costs more to fix than it will ever save; downgrade anything mislabelled. What survives gets fixed. Done when each finding is confirmed with evidence or dropped.
 
 ## 4. Fix
 
 Blockers and shoulds go to fresh implementer agents, one area of the code each, one after another in the checkout under review. Brief them with the implementer rules of `/dispatch`, copied verbatim from its "Per ticket" section ([SKILL.md](../dispatch/SKILL.md)); a fixer cannot load `/dispatch` itself, so the rules travel in the brief. The fix is the proper one, held to the finding's scope: restructure what the finding touches rather than patch around it, and nothing beyond. A fix that needs groundwork beyond the finding becomes a ticket instead.
 
-Then one **sweep** agent takes every nit in one brief, with the same rules: each fix stays local (one function or file, no interface a caller depends on changes). A nit that turns out bigger comes back in its report, and you decide it: a ticket when it is a real should, else `waived`.
+Then one **sweep** agent takes every nit in one brief, with the same rules: each fix stays local (one function or file, no interface a caller depends on changes). A nit that turns out bigger comes back in its report, and you decide it: a ticket when it is a real should, else drop it.
 
 Then the full suite once; one fixer for its failures. A second review round runs only while a blocker is open, and only over the code that changed. Two rounds at most. Commit as `qa: <range>: <summary>`.
 
 ## 5. Log
 
-Every confirmed finding ends this pass closed: fixed, deleted, ticketed, or waived. Nothing is left as a follow-up. **Waived** is a decision, not a deferral: fixing it would cost more than it ever saves, and it gets a one-line reason.
+Every confirmed finding ends this pass fixed, deleted or ticketed. Nothing is left as a follow-up.
 
 Append each confirmed finding to the findings log:
 
 ```
-<date> | <class> | <severity> | <file:line> | fixed|deleted|ticketed|waived: <reason>
+<date> | <class> | <severity> | <file:line> | fixed|deleted|ticketed
 ```
 
-A **class** is a short reusable name for the kind of mistake (`tautological-test`, `old-path-kept`, `blocking-io-on-ui-thread`). Reuse a class already in the log before coining one; a class is only useful if it recurs under one name. Waived findings count toward repeats too: a mistake not worth fixing once may be worth preventing.
+A **class** is a short reusable name for the kind of mistake (`tautological-test`, `old-path-kept`, `blocking-io-on-ui-thread`). Reuse a class already in the log before coining one; a class is only useful if it recurs under one name.
 
 ## Report
 
-The range, findings by severity with their outcomes, tests deleted, tickets written, the suite result, and the number of findings waived (their reasons are in the findings log). Never a list of open problems: everything in the report is closed. End with:
+The range, findings by severity with their outcomes, tests deleted, tickets written, the suite result. Never a list of open problems: everything in the report is closed. End with:
 
 **Repeats:** each class now at two or more entries in the findings log and not yet corrected, which is the cue for `/correct`; or `none`.
